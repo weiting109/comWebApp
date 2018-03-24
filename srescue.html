@@ -134,7 +134,10 @@
             //*retrieve latitude and longitude from Samsung Gear
             var fLat = 34.056025;
             var fLong = -117.195750;
-
+            /*
+            var fLat = [34.056166050304356, 34.05604351028498, 34.0560324451615]
+            var fLong = [-117.19569956078443, -117.1957325361164, -117.19569938406546]
+            */
             // firefighters
             function f(lvl, lat, long){
               var ffpoint = {
@@ -151,20 +154,45 @@
                 geometry: ffpoint,
                 symbol: markerSymbol
               });
+              ffpoint["z"] += 1.5
+              var ffpointText = new Graphic({
+                geometry: ffpoint,
+                symbol: {
+                  type: "text",
+                  text: "#01"
+                }
+              });
+              ffpoint["z"] -= 1.5
+
               ffgraphicsLayer.add(ffpointGraphic);
+              ffgraphicsLayer.add(ffpointText);
 
               var deleteold = setTimeout(del_f, 499);
               function del_f() {
                 ffgraphicsLayer.remove(ffpointGraphic);
+                ffgraphicsLayer.remove(ffpointText);
               }
             }
             //refresh firefighter position every second
+
             var update = setInterval(fmovement, 500);
             function fmovement() {
               fLat = fLat+0.000002;
               f(fLvl,fLat,fLong);
             }
-            ffgraphicsLayer.add(ffpointGraphic);
+
+            /*
+            var i = 0;
+            var l = fLat.length;
+            var update = setTimeout(fmovement,4000);
+            function fmovement(){
+              f(fLvl,fLat[i],fLong[i]);
+              i+=1;
+              if(i<l){
+
+              }
+            }
+            */
         });
     </script>
 
