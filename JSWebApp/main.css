@@ -1,0 +1,21 @@
+#map {
+  background-color: black;
+  height: 100vh;
+}
+
+#profiles {
+  background-color: 	#F5F5F5;
+}
+
+#profiles p {
+  margin: 0;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+li:hover {
+    background-color: #fdcf58;
+}
