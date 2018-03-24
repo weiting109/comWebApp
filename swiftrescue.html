@@ -60,9 +60,13 @@
             var critvcolor = [225, 0, 0, 0.75]; //red pt for victims in critical condition
 
             //FIREFIGHTER
+            //*retrieve elevation data from Samsung Gear
+            //level = elevation / level_height
             var fLvl = 1;
+            //*retrieve latitude and longitude from Samsung Gear
             var fLat = 34.056025;
             var fLong = -117.195750;
+
             function f(lvl, lat, long){
               var point = {
                 type: "point", // autocasts as new Point()
@@ -79,11 +83,16 @@
                 symbol: markerSymbol
               });
               graphicsLayer.add(pointGraphic);
+
+              var deleteold = setTimeout(del_f, 499);
+              function del_f() {
+                graphicsLayer.remove(pointGraphic);
+              }
             }
             //refresh firefighter position every second
-            var myVar = setInterval(fmovement, 1000);
+            var update = setInterval(fmovement, 500);
             function fmovement() {
-              fLat = fLat+0.000000002;
+              fLat = fLat+0.000002;
               f(fLvl,fLat,fLong);
             }
 
