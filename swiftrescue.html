@@ -60,22 +60,32 @@
             var critvcolor = [225, 0, 0, 0.75]; //red pt for victims in critical condition
 
             //FIREFIGHTER
-            var lvl = 1
-            var point = {
-              type: "point", // autocasts as new Point()
-              latitude: 34.056025,
-              longitude: -117.195750,
-              z: human_height + (lvl-1)*level_height
-            };
-            markerSymbol = {
-              type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-              color: fcolor
-            };
-            var pointGraphic = new Graphic({
-              geometry: point,
-              symbol: markerSymbol
-            });
-            graphicsLayer.add(pointGraphic);
+            var fLvl = 1;
+            var fLat = 34.056025;
+            var fLong = -117.195750;
+            function f(lvl, lat, long){
+              var point = {
+                type: "point", // autocasts as new Point()
+                latitude: lat,
+                longitude: long,
+                z: human_height + (lvl-1)*level_height
+              };
+              markerSymbol = {
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                color: fcolor
+              };
+              var pointGraphic = new Graphic({
+                geometry: point,
+                symbol: markerSymbol
+              });
+              graphicsLayer.add(pointGraphic);
+            }
+            //refresh firefighter position every second
+            var myVar = setInterval(fmovement, 1000);
+            function fmovement() {
+              fLat = fLat+0.000000002;
+              f(fLvl,fLat,fLong);
+            }
 
             // VICTIM
             var lvl = 2
@@ -104,6 +114,7 @@
                 view.ui.add(layerList, "top-right");
             });
         });
+
     </script>
 
     <style>
